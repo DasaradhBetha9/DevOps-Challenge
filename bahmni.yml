@@ -16,7 +16,7 @@
         dest: /etc/bahmni-installer/setup.yml
     - name: Exporting inventory file to local source
       shell:
-        cmd:echo "export BAHMNI_INVENTORY=local" >> ~/.bashrc && source ~/.bashrc
+        cmd: echo "export BAHMNI_INVENTORY=local" >> ~/.bashrc && source ~/.bashrc
     - name: Fire bahmni installer
       shell:
         cmd: bahmni install
