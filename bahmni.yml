@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Installing bahmni packages and dependencies
+      yum:
+        name: https://kojipkgs.fedoraproject.org//packages/zlib/1.2.11/19.fc30/x86_64/zlib-1.2.11-19.fc30.x86_64.rpm
+        state: present
+    - name: Install bahmni command line
+      yum:
+        name: https://dl.bintray.com/bahmni/rpm/rpms/bahmni-installer-0.92-147.noarch.rpm
+        state: present
+    - name: setup a configuration file for bahmni command in /etc/bahmni-installer
+      get_url:
+        url: https://tinyurl.com/yyoj98df
+        dest: /etc/bahmni-installer/setup.yml
+    - name: Exporting inventory file to local source
+      shell:
+        cmd:echo "export BAHMNI_INVENTORY=local" >> ~/.bashrc && source ~/.bashrc
+    - name: Fire bahmni installer
+      shell:
+        cmd: bahmni install
